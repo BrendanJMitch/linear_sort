@@ -43,10 +43,10 @@ INSTANTIATE_TEST_SUITE_P(BucketSortTest,
 // ===================================== TEST SORTS GENERATED DATA ====================================== //
 
 struct GenerateInputParams {
-    double max_val;
-    double min_val;
+    double maxVal;
+    double minVal;
     int length;
-    double buckets_per_item;
+    double bucketsPerItem;
 };
 
 std::map<std::string, GenerateInputParams> generateTestData {
@@ -65,20 +65,20 @@ std::map<std::string, GenerateInputParams> generateTestData {
 class GenerateInput : public testing::TestWithParam<std::pair<const std::string, GenerateInputParams>> { };
 
 TEST_P(GenerateInput, SortsVector) {
-    auto& [max_val, min_val, length, buckets_per_item] = GetParam().second;
+    auto& [maxVal, minVal, length, bucketsPerItem] = GetParam().second;
 
-    std::mt19937 random_engine {0};
-    std::uniform_real_distribution<double> data_distribution {max_val, min_val};
+    std::mt19937 randomEngine {0};
+    std::uniform_real_distribution<double> dataDistribution {maxVal, minVal};
 
-    auto generator = [&data_distribution, &random_engine]() {
-        return data_distribution(random_engine);
+    auto generator = [&dataDistribution, &randomEngine]() {
+        return dataDistribution(randomEngine);
     };
 
     std::vector<double> input(length);
     std::generate(input.begin(), input.end(), generator);
-    bucketSort(input, buckets_per_item);
+    bucketSort(input, bucketsPerItem);
 
-    EXPECT_NO_THROW(bucketSort(input, buckets_per_item));
+    EXPECT_NO_THROW(bucketSort(input, bucketsPerItem));
     EXPECT_TRUE(isSorted(input));
 }
 
@@ -97,9 +97,9 @@ std::map<std::string, double> badBucketsPerItemValues {
 class InvalidValues : public testing::TestWithParam<std::pair<const std::string, double>> { };
 
 TEST_P(InvalidValues, ThrowsInvalidArgument) {
-    double buckets_per_item = GetParam().second;
+    double bucketsPerItem = GetParam().second;
     std::vector<double> dummyData {1, 2, 3, 4, 5};
-    EXPECT_THROW(bucketSort(dummyData, buckets_per_item), std::invalid_argument);
+    EXPECT_THROW(bucketSort(dummyData, bucketsPerItem), std::invalid_argument);
 }
 
 INSTANTIATE_TEST_SUITE_P(BucketSortTest,

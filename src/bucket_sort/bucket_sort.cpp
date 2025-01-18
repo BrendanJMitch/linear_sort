@@ -8,10 +8,10 @@
 
 namespace {
     std::function<int(double)> createLinearMapping(double inputMin, double inputMax, int outputSize) {
-        const double linear_mapping_slope = (outputSize) / (inputMax - inputMin);
-        const double linear_mapping_offset = -inputMin * linear_mapping_slope;
-        return [linear_mapping_slope, linear_mapping_offset, outputSize](double value) {
-            int index = int(linear_mapping_slope * value + linear_mapping_offset);
+        const double linearMappingSlope = (outputSize) / (inputMax - inputMin);
+        const double linearMappingOffset = -inputMin * linearMappingSlope;
+        return [linearMappingSlope, linearMappingOffset, outputSize](double value) {
+            int index = int(linearMappingSlope * value + linearMappingOffset);
             if (index < 0) index = 0;
             if (index >= outputSize) index = outputSize - 1;
             return index;
