@@ -11,18 +11,10 @@ endif()
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-
-
 add_executable(app ${CMAKE_SOURCE_DIR}/src/main.cpp)
 
-set(LIBRARIES "bucket_sort")
-
-foreach(LIB IN LISTS LIBRARIES)
-    add_subdirectory(${CMAKE_SOURCE_DIR}/src/${LIB})
-    target_link_libraries(app PUBLIC ${LIB})
-endforeach()
-
-
+add_subdirectory(${CMAKE_SOURCE_DIR}/src)
+target_link_libraries(app PUBLIC linear_sort)
 
 set(TEST False CACHE BOOL "Whether or not to build tests")
 
@@ -33,9 +25,7 @@ if(TEST)
 
   enable_testing()
 
-  foreach(LIB IN LISTS LIBRARIES)
-      add_subdirectory(${CMAKE_SOURCE_DIR}/test/${LIB})
-  endforeach()
+  add_subdirectory(${CMAKE_SOURCE_DIR}/tests)
 
 endif()
 
