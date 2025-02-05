@@ -4,7 +4,7 @@ project(BucketSort VERSION 1.0.0)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # Turn warnings way up and treat warnings as errors
   add_compile_options(-Wall -Wextra -Werror -Wshadow -Woverloaded-virtual -Wredundant-decls
-    -Wcast-align -Wwrite-strings -Wlogical-op
+    -Wcast-align -Wwrite-strings -Wlogical-op -g
   )
 endif()
 
